@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Dashboard | Stackly Travel & Tourism</title>
+<style>
+
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+:root{
+    --primary:#066168;
+    --secondary:#85D200;
+    --body:#346065;
+    --bg:#EFFFFF;
+    --heading:#066168;
+    --light:#DBEEEE;
+    --cream:#FFF8EB;
+    --white:#fff;
+    --border:rgba(6,97,104,.12);
+    --shadow:0 12px 35px rgba(6,97,104,.10);
+}
+
+.userbox {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.userbox strong {
+    display: block;
+    color: var(--heading);
+    font-size: 14px;
+}
+
+.userbox small {
+    display: block !important;
+    font-size: 12px;
+    color: var(--primary);
+    opacity: .85;
+    margin-top: 2px;
+}
+
+#userEmail {
+    display: block !important;
+    max-width: 260px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#loginTime {
+    display: none !important;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--body);min-height:100vh}
+button,input,select{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+.app{display:flex;min-height:100vh}
+.sidebar{width:260px;background:var(--primary);color:#fff;position:fixed;left:0;top:0;bottom:0;display:flex;flex-direction:column;z-index:50}
+.brand{height:82px;display:flex;align-items:center;justify-content:center;padding:0 20px;border-bottom:1px solid rgba(255,255,255,.1)}
+.brand a{display:flex;align-items:center;justify-content:center}
+.brand img{width:180px;height:58px;object-fit:contain;display:block}
+.nav{flex:1;overflow-y:auto;overflow-x:hidden;padding:18px 13px 20px;scrollbar-width:thin;scrollbar-color:rgba(133,210,0,.55) transparent}
+.nav::-webkit-scrollbar{width:5px}.nav::-webkit-scrollbar-track{background:transparent}.nav::-webkit-scrollbar-thumb{background:rgba(133,210,0,.55);border-radius:50px}.nav::-webkit-scrollbar-thumb:hover{background:var(--secondary)}
+.nav-label{font-size:11px;text-transform:uppercase;letter-spacing:1.4px;opacity:.55;padding:12px 14px 8px}
+.nav a{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;margin-bottom:5px;font-size:14px;transition:.25s}
+.nav a:hover,.nav a.active{background:rgba(255,255,255,.12);color:#fff}
+.nav a.active{box-shadow:inset 3px 0 var(--secondary)}
+.nav-icon{width:22px;text-align:center;font-size:17px}
+.sidebar-footer{padding:15px;border-top:1px solid rgba(255,255,255,.1)}
+.logout{width:100%;border:0;background:rgba(255,255,255,.1);color:#fff;padding:12px;border-radius:12px}
+.logout:hover{background:rgba(133,210,0,.18)}
+.main{margin-left:260px;width:calc(100% - 260px)}
+.topbar{height:82px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 30px;position:sticky;top:0;z-index:30}
+.menu-btn{display:none;border:0;background:var(--light);color:var(--primary);width:42px;height:42px;border-radius:11px}
+.search{display:flex;align-items:center;background:var(--bg);border:1px solid var(--border);border-radius:13px;width:min(420px,45vw);padding:0 14px}
+.search input{border:0;outline:0;background:transparent;width:100%;padding:12px 10px;color:var(--body)}
+.userbox{display:flex;align-items:center;gap:12px}
+.avatar{width:43px;height:43px;border-radius:50%;background:var(--secondary);color:var(--primary);display:grid;place-items:center;font-weight:800}
+.userbox strong{display:block;color:var(--heading);font-size:14px}.userbox small{display:block !important;font-size:12px;color:var(--primary);opacity:.85;margin-top:2px}
+.content{padding:30px}
+.page-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;gap:15px}
+.page-title h1{font-size:28px;color:var(--heading);margin-bottom:5px}
+.page-title p{font-size:14px;opacity:.75}
+.primary-btn,.outline-btn,.danger-btn{border:0;border-radius:11px;padding:11px 16px;font-weight:700}
+.primary-btn{background:var(--secondary);color:var(--primary)}
+.outline-btn{background:#fff;color:var(--primary);border:1px solid var(--border)}
+.danger-btn{background:#fff0f0;color:#b42318}
+.grid{display:grid;gap:18px}
+.stats{grid-template-columns:repeat(4,1fr);margin-bottom:22px}
+.card{background:#fff;border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow)}
+.stat{padding:20px;position:relative;overflow:hidden}
+.stat .icon{width:43px;height:43px;border-radius:12px;background:var(--light);display:grid;place-items:center;font-size:19px;margin-bottom:15px}
+.stat h3{font-size:26px;color:var(--heading);margin-bottom:4px}
+.stat p{font-size:13px;opacity:.7}
+.stat .trend{position:absolute;right:18px;top:20px;color:#428000;font-size:12px;font-weight:700}
+.section-grid{grid-template-columns:1.45fr 1fr;margin-bottom:22px}
+.section{padding:22px}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.section-head h2{font-size:18px;color:var(--heading)}
+.section-head button{background:none;border:0;color:var(--primary);font-size:13px;font-weight:700}
+.trip{display:flex;align-items:center;gap:15px;padding:13px 0;border-bottom:1px solid var(--border)}
+.trip:last-child{border-bottom:0}
+.trip img{width:82px;height:62px;object-fit:cover;border-radius:11px}
+.trip-info{flex:1}.trip-info h4{color:var(--heading);font-size:14px;margin-bottom:5px}.trip-info p{font-size:12px;opacity:.7}
+.status{font-size:11px;font-weight:800;padding:6px 9px;border-radius:20px;background:#eef9e1;color:#4e8000}
+.status.pending{background:#fff8df;color:#987100}
+.status.cancelled{background:#fff0f0;color:#b42318}
+.booking-table{width:100%;border-collapse:collapse}
+.booking-table th,.booking-table td{text-align:left;padding:13px 8px;border-bottom:1px solid var(--border);font-size:13px}
+.booking-table th{font-size:11px;text-transform:uppercase;letter-spacing:.7px;opacity:.6}
+.booking-table td strong{color:var(--heading)}
+.destination-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.destination{padding:13px;border:1px solid var(--border);border-radius:13px;background:var(--cream)}
+.destination img{width:100%;height:95px;object-fit:cover;border-radius:10px;margin-bottom:9px}
+.destination h4{color:var(--heading);font-size:14px;margin-bottom:3px}.destination p{font-size:11px;opacity:.7}
+.quick-grid{grid-template-columns:repeat(4,1fr)}
+.quick{padding:18px;text-align:left;border:1px solid var(--border);background:#fff;border-radius:16px;transition:.25s}
+.quick:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.quick-icon{font-size:23px;margin-bottom:10px}.quick h3{font-size:14px;color:var(--heading);margin-bottom:4px}.quick p{font-size:12px;opacity:.7}
+.view{display:none}.view.active{display:block}
+.empty{text-align:center;padding:45px 20px;opacity:.7}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:700;color:var(--heading)}.field input,.field select,.field textarea{border:1px solid var(--border);border-radius:10px;padding:12px;outline:0;background:var(--bg)}.field textarea{min-height:110px;resize:vertical}
+.toast{position:fixed;right:25px;bottom:25px;background:var(--primary);color:#fff;padding:13px 17px;border-radius:12px;box-shadow:var(--shadow);display:none;z-index:100}
+.overlay{display:none}
+@media(max-width:1100px){.stats{grid-template-columns:repeat(2,1fr)}.quick-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:800px){
+.sidebar{transform:translateX(-100%);transition:.3s}.sidebar.open{transform:translateX(0)}.main{margin-left:0;width:100%}.menu-btn{display:block}.topbar{padding:0 16px}.topbar .search{display:none}.content{padding:20px}.section-grid{grid-template-columns:1fr}.overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:40}.overlay.show{display:block}
+.userbox div:last-child{display:block !important}
+#userEmail{display:block !important;font-size:11px;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#loginTime{display:none !important}
+}
+@media(max-width:560px){.stats,.quick-grid,.destination-list,.form-grid{grid-template-columns:1fr}.page-title{align-items:flex-start;flex-direction:column}.booking-table{min-width:650px}.table-wrap{overflow-x:auto}.page-title h1{font-size:24px}.trip{align-items:flex-start}.trip .status{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+    <div class="brand">
+        <a href="index.html" aria-label="Stackly Home"><img src="assets/images/logo.webp" alt="Stackly Logo"></a>
+    </div>
+    <nav class="nav">
+        <div class="nav-label">Main</div>
+        <a href="#" class="active" data-view="dashboard"><span class="nav-icon">⌂</span>Dashboard</a>
+        <a href="#" data-view="my-trips"><span class="nav-icon">✈</span>My Trips</a>
+        <a href="#" data-view="bookings"><span class="nav-icon">▣</span>My Bookings</a>
+        <a href="#" data-view="wishlist"><span class="nav-icon">♡</span>Wishlist</a>
+        <div class="nav-label">Account</div>
+        <a href="#" data-view="profile"><span class="nav-icon">◉</span>My Profile</a>
+        <a href="#" data-view="payments"><span class="nav-icon">₹</span>Payments</a>
+        <a href="#" data-view="notifications"><span class="nav-icon">♧</span>Notifications</a>
+        <a href="#" data-view="settings"><span class="nav-icon">⚙</span>Settings</a>
+    </nav>
+    <div class="sidebar-footer">
+        <button class="logout" id="logoutBtn">↪ Logout</button>
+    </div>
+</aside>
+<div class="overlay" id="overlay"></div>
+
+<main class="main">
+<header class="topbar">
+    <button class="menu-btn" id="menuBtn">☰</button>
+    <form class="search" id="searchForm">
+        <span>⌕</span><input id="searchInput" type="search" placeholder="Search trips, destinations...">
+    </form>
+    <div class="userbox">
+    <div class="avatar" id="userAvatar">U</div>
+
+    <div>
+        <strong id="userName">Traveler</strong>
+        <small id="userEmail">user@example.com</small>
+        <small id="loginTime">Login Time: --</small>
+    </div>
+</div>
+</header>
+
+<div class="content">
+
+<section class="view active" id="dashboard">
+    <div class="page-title">
+        <div><h1>Welcome back, Traveler!</h1><p>Plan your next journey and manage your travel bookings.</p></div>
+        <button class="primary-btn" data-action>Explore Packages</button>
+    </div>
+    <div class="grid stats">
+        <div class="card stat"><div class="icon">✈</div><span class="trend">+2 this year</span><h3>8</h3><p>Total Trips</p></div>
+        <div class="card stat"><div class="icon">▣</div><span class="trend">2 upcoming</span><h3>12</h3><p>Total Bookings</p></div>
+        <div class="card stat"><div class="icon">♡</div><span class="trend">+4 added</span><h3>7</h3><p>Wishlist</p></div>
+        <div class="card stat"><div class="icon">★</div><span class="trend">Excellent</span><h3>4.9</h3><p>Traveler Rating</p></div>
+    </div>
+
+    <div class="grid section-grid">
+        <div class="card section">
+            <div class="section-head"><h2>Upcoming Trips</h2><button data-view-link="my-trips">View All →</button></div>
+            <div class="trip"><img src="assets/images/trv-mostfav/pic1.webp" alt="Maldives"><div class="trip-info"><h4>Maldives Escape</h4><p>Malé • 18 Oct 2026 • 5 Days</p></div><span class="status">Confirmed</span></div>
+            <div class="trip"><img src="assets/images/trv-mostfav/pic2.webp" alt="Switzerland"><div class="trip-info"><h4>Swiss Alpine Holiday</h4><p>Zurich • 12 Dec 2026 • 7 Days</p></div><span class="status pending">Pending</span></div>
+            <div class="trip"><img src="assets/images/trv-mostfav/pic3.webp" alt="Paris"><div class="trip-info"><h4>Paris City Break</h4><p>Paris • 05 Jan 2027 • 4 Days</p></div><span class="status">Confirmed</span></div>
+        </div>
+        <div class="card section">
+            <div class="section-head"><h2>Popular Destinations</h2><button data-action>Explore →</button></div>
+            <div class="destination-list">
+                <div class="destination"><img src="assets/images/trv-mostfav/pic4.webp" alt="Maldives"><h4>Maldives</h4><p>Island luxury</p></div>
+                <div class="destination"><img src="assets/images/trv-mostfav/pic5.webp" alt="Switzerland"><h4>Switzerland</h4><p>Alpine adventure</p></div>
+                <div class="destination"><img src="assets/images/trv-mostfav/pic6.webp" alt="Paris"><h4>Paris</h4><p>Culture & romance</p></div>
+                <div class="destination"><img src="assets/images/trv-mostfav/pic7.webp" alt="Dubai"><h4>Dubai</h4><p>Luxury city escape</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card section">
+        <div class="section-head"><h2>Recent Bookings</h2><button data-view-link="bookings">View All →</button></div>
+        <div class="table-wrap">
+        <table class="booking-table">
+            <thead><tr><th>Booking ID</th><th>Destination</th><th>Date</th><th>Amount</th><th>Status</th></tr></thead>
+            <tbody>
+                <tr><td><strong>#STK-10248</strong></td><td>Maldives Escape</td><td>18 Oct 2026</td><td>₹68,500</td><td><span class="status">Confirmed</span></td></tr>
+                <tr><td><strong>#STK-10221</strong></td><td>Swiss Alpine Holiday</td><td>12 Dec 2026</td><td>₹1,24,000</td><td><span class="status pending">Pending</span></td></tr>
+                <tr><td><strong>#STK-10197</strong></td><td>Paris City Break</td><td>05 Jan 2027</td><td>₹76,800</td><td><span class="status">Confirmed</span></td></tr>
+            </tbody>
+        </table></div>
+    </div>
+    <br>
+    <div class="grid quick-grid">
+        <button class="quick" data-action><div class="quick-icon">✈</div><h3>Find a Trip</h3><p>Discover your next destination.</p></button>
+        <button class="quick" data-action><div class="quick-icon">▣</div><h3>New Booking</h3><p>Reserve your dream holiday.</p></button>
+        <button class="quick" data-action><div class="quick-icon">♡</div><h3>Wishlist</h3><p>View saved destinations.</p></button>
+        <button class="quick" data-action><div class="quick-icon">☏</div><h3>Need Help?</h3><p>Contact travel support.</p></button>
+    </div>
+</section>
+
+<section class="view" id="my-trips">
+    <div class="page-title"><div><h1>My Trips</h1><p>All your upcoming and completed journeys.</p></div><button class="primary-btn" data-action>Plan New Trip</button></div>
+    <div class="card section"><div class="section-head"><h2>Your Travel Plans</h2></div>
+    <div class="trip"><img src="assets/images/trv-blog/blog-lg/pic1.webp" alt="Maldives"><div class="trip-info"><h4>Maldives Escape</h4><p>18 Oct 2026 • 5 Days • 2 Travelers</p></div><span class="status">Confirmed</span></div>
+    <div class="trip"><img src="assets/images/trv-blog/blog-lg/pic2.webp" alt="Switzerland"><div class="trip-info"><h4>Swiss Alpine Holiday</h4><p>12 Dec 2026 • 7 Days • 2 Travelers</p></div><span class="status pending">Pending</span></div>
+    <div class="trip"><img src="assets/images/trv-blog/blog-lg/pic4.webp" alt="Paris"><div class="trip-info"><h4>Paris City Break</h4><p>05 Jan 2027 • 4 Days • 2 Travelers</p></div><span class="status">Confirmed</span></div>
+    </div>
+</section>
+
+<section class="view" id="bookings">
+    <div class="page-title"><div><h1>My Bookings</h1><p>Track your holiday reservations and payment status.</p></div></div>
+    <div class="card section"><div class="table-wrap"><table class="booking-table"><thead><tr><th>Booking ID</th><th>Package</th><th>Travel Date</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead>
+    <tbody><tr><td><strong>#STK-10248</strong></td><td>Maldives Escape</td><td>18 Oct 2026</td><td>₹68,500</td><td><span class="status">Confirmed</span></td><td><button class="outline-btn" data-action>Details</button></td></tr>
+    <tr><td><strong>#STK-10221</strong></td><td>Swiss Alpine Holiday</td><td>12 Dec 2026</td><td>₹1,24,000</td><td><span class="status pending">Pending</span></td><td><button class="outline-btn" data-action>Details</button></td></tr>
+    <tr><td><strong>#STK-10197</strong></td><td>Paris City Break</td><td>05 Jan 2027</td><td>₹76,800</td><td><span class="status">Confirmed</span></td><td><button class="outline-btn" data-action>Details</button></td></tr></tbody>
+    </table></div></div>
+</section>
+
+<section class="view" id="wishlist">
+    <div class="page-title"><div><h1>Wishlist</h1><p>Your saved destinations and holiday ideas.</p></div></div>
+    <div class="grid destination-list" style="grid-template-columns:repeat(3,1fr)">
+        <div class="card section"><img src="assets/images/trv-gallery/pic1.webp" style="width:100%;height:170px;object-fit:cover;border-radius:12px" alt="Maldives"><br><br><h2>Maldives</h2><p>Luxury island resorts and beaches.</p><br><button class="primary-btn" data-action>View Package</button></div>
+        <div class="card section"><img src="assets/images/trv-gallery/pic2.webp" style="width:100%;height:170px;object-fit:cover;border-radius:12px" alt="Switzerland"><br><br><h2>Switzerland</h2><p>Scenic rail journeys and Alps.</p><br><button class="primary-btn" data-action>View Package</button></div>
+        <div class="card section"><img src="assets/images/trv-gallery/pic3.webp" style="width:100%;height:170px;object-fit:cover;border-radius:12px" alt="Paris"><br><br><h2>Paris</h2><p>Culture, cuisine and iconic landmarks.</p><br><button class="primary-btn" data-action>View Package</button></div>
+    </div>
+</section>
+
+<section class="view" id="profile">
+    <div class="page-title"><div><h1>My Profile</h1><p>Manage your traveler information.</p></div><button class="primary-btn" data-action>Save Changes</button></div>
+    <div class="card section"><div class="form-grid">
+        <div class="field"><label>Full Name</label><input value="Vigneshwaran"></div>
+        <div class="field"><label>Email Address</label><input type="email" id="profileEmail" value="traveler@example.com"></div>
+        <div class="field"><label>Phone Number</label><input value="+91 12345 67890"></div>
+        <div class="field"><label>Country</label><select><option>India</option><option>Singapore</option><option>United Arab Emirates</option></select></div>
+        <div class="field full"><label>Travel Preferences</label><textarea>Beach holidays, cultural tours, luxury stays and scenic destinations.</textarea></div>
+    </div></div>
+</section>
+
+<section class="view" id="payments">
+    <div class="page-title"><div><h1>Payments</h1><p>Review your travel payment history.</p></div></div>
+    <div class="card section"><div class="table-wrap"><table class="booking-table"><thead><tr><th>Transaction</th><th>Booking</th><th>Date</th><th>Amount</th><th>Status</th></tr></thead>
+    <tbody><tr><td><strong>#PAY-7812</strong></td><td>Maldives Escape</td><td>28 Sep 2026</td><td>₹68,500</td><td><span class="status">Paid</span></td></tr>
+    <tr><td><strong>#PAY-7749</strong></td><td>Swiss Alpine Holiday</td><td>01 Oct 2026</td><td>₹62,000</td><td><span class="status pending">Partial</span></td></tr></tbody></table></div></div>
+</section>
+
+<section class="view" id="notifications">
+    <div class="page-title"><div><h1>Notifications</h1><p>Latest updates about your travel plans.</p></div><button class="outline-btn" data-action>Mark All Read</button></div>
+    <div class="card section">
+        <div class="trip"><div class="avatar">✓</div><div class="trip-info"><h4>Maldives booking confirmed</h4><p>Your booking #STK-10248 has been confirmed.</p></div><small>Today</small></div>
+        <div class="trip"><div class="avatar">₹</div><div class="trip-info"><h4>Payment received</h4><p>Your payment has been successfully recorded.</p></div><small>2 days ago</small></div>
+        <div class="trip"><div class="avatar">✈</div><div class="trip-info"><h4>Travel reminder</h4><p>Your Maldives trip is coming up soon.</p></div><small>5 days ago</small></div>
+    </div>
+</section>
+
+<section class="view" id="settings">
+    <div class="page-title"><div><h1>Settings</h1><p>Manage your dashboard preferences.</p></div></div>
+    <div class="card section"><div class="form-grid">
+        <div class="field"><label>Language</label><select><option>English</option><option>Tamil</option></select></div>
+        <div class="field"><label>Currency</label><select><option>INR - ₹</option><option>USD - $</option><option>EUR - €</option></select></div>
+        <div class="field"><label>Email Notifications</label><select><option>Enabled</option><option>Disabled</option></select></div>
+        <div class="field"><label>Travel Updates</label><select><option>Enabled</option><option>Disabled</option></select></div>
+    </div><br><button class="primary-btn" data-action>Save Settings</button></div>
+</section>
+
+</div></main>
+</div>
+<div class="toast" id="toast">Opening page...</div>
+
+<script>
+const views = document.querySelectorAll('.view');
+const navLinks = document.querySelectorAll('.nav a[data-view]');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+const toast = document.getElementById('toast');
+
+function showView(id){
+    const target=document.getElementById(id);
+    if(!target) return;
+    views.forEach(v=>v.classList.remove('active'));
+    target.classList.add('active');
+    navLinks.forEach(a=>a.classList.toggle('active',a.dataset.view===id));
+    window.scrollTo({top:0,behavior:'smooth'});
+    sidebar.classList.remove('open'); overlay.classList.remove('show');
+}
+navLinks.forEach(link=>{
+    link.addEventListener('click',e=>{e.preventDefault();showView(link.dataset.view);});
+});
+document.querySelectorAll('[data-view-link]').forEach(btn=>{
+    btn.addEventListener('click',()=>showView(btn.dataset.viewLink));
+});
+document.querySelectorAll('[data-action]').forEach(btn=>{
+    btn.addEventListener('click',()=>window.location.href='404.html');
+});
+document.getElementById('logoutBtn').addEventListener('click',()=>window.location.href='login.html');
+
+document.getElementById('menuBtn').addEventListener('click',()=>{
+    sidebar.classList.add('open');overlay.classList.add('show');
+});
+overlay.addEventListener('click',()=>{sidebar.classList.remove('open');overlay.classList.remove('show')});
+
+document.getElementById('searchForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const q=document.getElementById('searchInput').value.trim().toLowerCase();
+    if(!q){showView('dashboard');return}
+    const map={
+        trip:'my-trips',trips:'my-trips',travel:'my-trips',booking:'bookings',bookings:'bookings',
+        wishlist:'wishlist',saved:'wishlist',profile:'profile',account:'profile',
+        payment:'payments',payments:'payments',notification:'notifications',notifications:'notifications',
+        setting:'settings',settings:'settings',dashboard:'dashboard'
+    };
+    const key=Object.keys(map).find(k=>q.includes(k));
+    if(key) showView(map[key]); else window.location.href='404.html';
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const email = localStorage.getItem("loggedInEmail");
+    const role = localStorage.getItem("loggedInRole");
+
+    const emailEl = document.getElementById("userEmail");
+    const nameEl = document.getElementById("userName");
+    const avatarEl = document.getElementById("userAvatar");
+    const profileEmail = document.getElementById("profileEmail");
+
+    if (email) {
+        if (emailEl) {
+            emailEl.textContent = email;
+        }
+
+        if (avatarEl) {
+            avatarEl.textContent = email.charAt(0).toUpperCase();
+        }
+
+        if (profileEmail) {
+            profileEmail.value = email;
+        }
+    }
+
+    if (role && nameEl) {
+        nameEl.textContent = role === "admin" ? "Admin" : "Traveler";
+    }
+});
+</script>
+</body>
+</html>
