@@ -7,9 +7,9 @@
 <style>
 :root{--primary:#066168;--primary-dark:#044c52;--secondary:#85D200;--bg:#EFFFFF;--cream:#FFF8EB;--muted:#718487;--white:#fff}
 *{box-sizing:border-box;margin:0;padding:0}
-body{min-height:100vh;font-family:Inter,Segoe UI,Arial,sans-serif;color:#346065;background:radial-gradient(circle at 15% 20%,rgba(133,210,0,.16),transparent 25%),radial-gradient(circle at 85% 75%,rgba(6,97,104,.14),transparent 28%),var(--bg);overflow:hidden}
+body{min-height:100vh;font-family:Inter,Segoe UI,Arial,sans-serif;color:#346065;background:radial-gradient(circle at 15% 20%,rgba(133,210,0,.16),transparent 25%),radial-gradient(circle at 85% 75%,rgba(6,97,104,.14),transparent 28%),var(--bg);overflow-x:hidden;overflow-y:auto}
 a{text-decoration:none;color:inherit}
-.page{min-height:100vh;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.page{height:100vh;min-height:0;display:flex;flex-direction:column;position:relative;overflow:hidden}
 .shape{position:absolute;border-radius:50%;pointer-events:none}
 .one{width:320px;height:320px;right:-130px;top:-130px;background:rgba(133,210,0,.16)}
 .two{width:230px;height:230px;left:-100px;bottom:-90px;background:rgba(6,97,104,.10)}
@@ -18,27 +18,66 @@ a{text-decoration:none;color:inherit}
 .logo img{width:180px;height:58px;object-fit:contain;display:block}
 .home-link{display:inline-flex;align-items:center;gap:8px;padding:10px 15px;border:1px solid rgba(6,97,104,.14);border-radius:12px;background:rgba(255,255,255,.72);color:var(--primary);font-size:12px;font-weight:700;transition:.25s}
 .home-link:hover{background:var(--primary);color:#fff;transform:translateY(-2px)}
-.content{flex:1;display:flex;align-items:center;justify-content:center;padding:35px 20px 70px;position:relative;z-index:2}
-.card{width:min(900px,100%);text-align:center;padding:45px 30px}
+.content{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:10px 20px 15px;position:relative;z-index:2}
+.card{width:min(900px,100%);text-align:center;padding:10px 30px}
 .code{font-size:clamp(120px,22vw,250px);line-height:.8;letter-spacing:-14px;font-weight:900;color:var(--primary);text-shadow:10px 10px 0 rgba(133,210,0,.28),18px 18px 35px rgba(6,97,104,.08);animation:float 4s ease-in-out infinite}
 .code span{color:var(--secondary)}
-.badge{display:inline-flex;align-items:center;gap:8px;margin:30px auto 15px;padding:8px 13px;border-radius:30px;background:var(--cream);color:var(--primary);border:1px solid rgba(6,97,104,.10);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.3px}
+.badge{display:inline-flex;align-items:center;gap:8px;margin:20px auto 12px;padding:8px 13px;border-radius:30px;background:var(--cream);color:var(--primary);border:1px solid rgba(6,97,104,.10);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.3px}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--secondary)}
 h1{color:var(--primary);font-size:clamp(28px,4vw,48px);line-height:1.15;letter-spacing:-1.2px;margin-bottom:12px}
-.description{max-width:580px;margin:auto;color:var(--muted);font-size:14px;line-height:1.8}
-.actions{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:28px}
+.description{max-width:580px;margin:auto;color:var(--muted);font-size:14px;line-height:1.65}
+.actions{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:20px}
 .btn{min-width:145px;height:48px;padding:0 20px;border-radius:13px;display:inline-flex;align-items:center;justify-content:center;gap:9px;font-size:13px;font-weight:800;transition:.25s;cursor:pointer}
 .primary{background:var(--primary);color:#fff;border:0;box-shadow:0 12px 25px rgba(6,97,104,.18)}
 .primary:hover{background:var(--primary-dark);transform:translateY(-3px)}
 .secondary{background:#fff;color:var(--primary);border:1px solid rgba(6,97,104,.15)}
 .secondary:hover{border-color:var(--primary);background:var(--cream);transform:translateY(-3px)}
-.route{width:min(520px,90%);margin:38px auto 0;display:flex;align-items:center;justify-content:center}
+.route{width:min(520px,90%);margin:22px auto 0;display:flex;align-items:center;justify-content:center}
 .line{height:1px;flex:1;max-width:170px;background:linear-gradient(90deg,transparent,var(--secondary),transparent)}
 .route-dot{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;margin:0 9px;background:#fff;border:1px solid rgba(6,97,104,.12);color:var(--primary);box-shadow:0 10px 25px rgba(6,97,104,.08)}
-.footer{text-align:center;padding:15px 20px 22px;color:var(--muted);font-size:10px;position:relative;z-index:5}
+.footer{text-align:center;padding:8px 20px 12px;color:var(--muted);font-size:10px;position:relative;z-index:5}
+
+/* Modern Page Scrollbar */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(6, 97, 104, .45) transparent;
+    scroll-behavior: smooth;
+}
+
+body::-webkit-scrollbar {
+    width: 7px;
+}
+
+body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: rgba(6, 97, 104, .45);
+    border-radius: 20px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: #066168;
+}
+
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 @media(max-width:700px){
-body{overflow:auto}.header{height:70px;padding:0 18px}.logo img{width:135px;height:48px}.home-link{padding:9px 11px;font-size:11px}.content{padding:20px 15px 35px}.card{padding:25px 10px}.code{font-size:clamp(100px,31vw,170px);letter-spacing:-8px}.badge{margin-top:25px}h1{font-size:29px}.description{font-size:13px;line-height:1.7}.actions{flex-direction:column}.btn{width:min(280px,100%)}.route{margin-top:30px}.one{width:220px;height:220px}
+body{overflow-x:hidden;overflow-y:auto}
+.page{height:auto;min-height:100vh;overflow:visible}
+.header{height:70px;padding:0 18px}
+.logo img{width:135px;height:48px}
+.home-link{padding:9px 11px;font-size:11px}
+.content{padding:20px 15px 25px}
+.card{padding:25px 10px}
+.code{font-size:clamp(100px,31vw,170px);letter-spacing:-8px}
+.badge{margin-top:25px}
+h1{font-size:29px}
+.description{font-size:13px;line-height:1.7}
+.actions{flex-direction:column}
+.btn{width:min(280px,100%)}
+.route{margin-top:30px}
+.one{width:220px;height:220px}
 }
 </style>
 </head>
