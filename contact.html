@@ -43,6 +43,35 @@
     }
 
 }
+
+/* Contact illustration visibility fix */
+.contact-image {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+@media (max-width: 1535px) {
+    .contact-image {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}
+
+@media (max-width: 991px) {
+    .contact-image {
+        position: relative !important;
+        right: auto !important;
+        bottom: auto !important;
+        width: min(260px, 70%) !important;
+        height: auto !important;
+        margin: 25px auto 0 !important;
+        z-index: 1 !important;
+    }
+}
 	</style>
 </head>
 <body class="selection:bg-[#484848] selection:text-white">
@@ -515,7 +544,14 @@
 											<h3 class="!font-display md:text-48 sm:text-40 text-2xl">Let's <span class="text-citrusyellow">Talk</span> About You !</h3>
 										</div>
 									</div>
-									<img src="assets/images/Image-cont.webp" alt="Image" class="absolute -bottom-5 -right-5 w-65 -z-1 max-2xl:hidden" width="260" height="488" loading="lazy">
+									<img
+    src="assets/images/Image-cont.webp"
+    alt="Contact illustration"
+    class="contact-image absolute -bottom-5 -right-5 w-65 z-0"
+    width="260"
+    height="488"
+    loading="lazy"
+>
 								</div>
 							</div>
 						</div>
